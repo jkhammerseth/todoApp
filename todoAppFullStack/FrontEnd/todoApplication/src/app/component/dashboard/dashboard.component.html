@@ -1,0 +1,98 @@
+<div class="container-fluid">
+  <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Todo App</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addTodo" type="submit">Add</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Todo table -->
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col">Todo ID</th>
+      <th scope="col">Description</th>
+      <th scope="col">Summary</th>
+      <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let todo of todoList">
+      <th>{{todo.id}}</th>
+      <td>{{todo.description}}</td>
+      <td>{{todo.summary}}</td>
+      <td>
+        <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#editTodo" (click)="editTodo(this.todo)">Edit</button>
+        <button type="button" class="btn btn-outline-danger" (click)="deleteTodo(this.todo); getAllTodos()">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- Add todo modal -->
+  <div class="modal fade" id="addTodo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add new todo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <form [formGroup]="todoDetail">
+            <div class="mb-3">
+              <label class="form-label">Description</label>
+              <input type="text" formControlName="description" class="form-control" id="desc" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Summary</label>
+              <input type="text" formControlName="summary" class="form-control" id="sum" aria-describedby="emailHelp">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" (click)="addTodo(); getAllTodos()" data-bs-dismiss="modal">Add todo</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit todo modal -->
+  <div class="modal fade" id="editTodo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit todo</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="todoDetail">
+            <div class="mb-3">
+              <label class="form-label">Description</label>
+              <input type="text" formControlName="description" class="form-control" id="description" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Summary</label>
+              <input type="text" formControlName="summary" class="form-control" id="summary" aria-describedby="emailHelp">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-outline-success" (click)="updateTodo(); getAllTodos()" data-bs-dismiss="modal">Update</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
